@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class Restaurant {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
 

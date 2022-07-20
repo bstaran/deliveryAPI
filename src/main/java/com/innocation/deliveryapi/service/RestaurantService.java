@@ -23,18 +23,18 @@ public class RestaurantService {
         Restaurant restaurant = new Restaurant(requestDto);
 
         // 최소 주문가격 검사
-        if (requestDto.getMinOrderPrice() < 1000 && requestDto.getMinOrderPrice() > 100000) {
+        if (restaurant.getMinOrderPrice() < 1000 && restaurant.getMinOrderPrice() > 100000) {
             throw new IllegalArgumentException("유효하지 않은 가격입니다." +
                     "1,000원 ~ 100,000원 사이로 입력해주세요.");
-        } else if (requestDto.getMinOrderPrice() % 100 != 0) {
+        } else if (restaurant.getMinOrderPrice() % 100 != 0) {
             throw new IllegalArgumentException("100원 단위로 입력해주세요.");
         }
 
         // 기본 배달비 검사
-        if (requestDto.getDeliveryFee() < 0 && requestDto.getDeliveryFee() >= 10000) {
+        if (restaurant.getDeliveryFee() < 0 && restaurant.getDeliveryFee() >= 10000) {
             throw new IllegalArgumentException("유효하지 않은 가격입니다." +
                     "10000원 아래로 입력해주세요.");
-        } else if (requestDto.getDeliveryFee() % 500 != 0) {
+        } else if (restaurant.getDeliveryFee() % 500 != 0) {
             throw new IllegalArgumentException("500원 단위로 입력해주세요.");
         }
 

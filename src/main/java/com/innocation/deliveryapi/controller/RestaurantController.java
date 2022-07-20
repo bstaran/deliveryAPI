@@ -1,6 +1,6 @@
 package com.innocation.deliveryapi.controller;
 
-import com.innocation.deliveryapi.Dto.RestaurantRequestDto;
+import com.innocation.deliveryapi.Dto.RestaurantDto;
 import com.innocation.deliveryapi.model.Restaurant;
 import com.innocation.deliveryapi.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ public class RestaurantController {
     }
 
     @PostMapping("/restaurant/register")
-    public Long createRestaurant(@RequestBody RestaurantRequestDto requestDto) {
+    public Restaurant createRestaurant(@RequestBody RestaurantDto requestDto) {
 
         Restaurant restaurant = restaurantService.createRestaurant(requestDto);
-        return restaurant.getId();
+        return restaurant;
     }
 
     @GetMapping("/restaurants")

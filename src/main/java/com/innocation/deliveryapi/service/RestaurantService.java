@@ -1,6 +1,6 @@
 package com.innocation.deliveryapi.service;
 
-import com.innocation.deliveryapi.Dto.RestaurantRequestDto;
+import com.innocation.deliveryapi.Dto.RestaurantDto;
 import com.innocation.deliveryapi.model.Restaurant;
 import com.innocation.deliveryapi.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    public Restaurant createRestaurant(RestaurantRequestDto requestDto) {
+    public Restaurant createRestaurant(RestaurantDto requestDto) {
 
         Restaurant restaurant = new Restaurant(requestDto);
 
         // 최소 주문가격 검사
-        if (restaurant.getMinOrderPrice() < 1000 && restaurant.getMinOrderPrice() > 100000) {
+        if (restaurant.getMinOrderPrice() < 1000 || restaurant.getMinOrderPrice() > 100000) {
             throw new IllegalArgumentException("유효하지 않은 가격입니다." +
                     "1,000원 ~ 100,000원 사이로 입력해주세요.");
         } else if (restaurant.getMinOrderPrice() % 100 != 0) {
@@ -31,7 +31,7 @@ public class RestaurantService {
         }
 
         // 기본 배달비 검사
-        if (restaurant.getDeliveryFee() < 0 && restaurant.getDeliveryFee() >= 10000) {
+        if (restaurant.getDeliveryFee() < 0 || restaurant.getDeliveryFee() > 10000) {
             throw new IllegalArgumentException("유효하지 않은 가격입니다." +
                     "10000원 아래로 입력해주세요.");
         } else if (restaurant.getDeliveryFee() % 500 != 0) {

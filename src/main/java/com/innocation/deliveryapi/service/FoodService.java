@@ -8,6 +8,7 @@ import com.innocation.deliveryapi.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -22,25 +23,28 @@ public class FoodService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    public Food registerFood(Long restaurantId, FoodRequestDto requestDto) {
+    @Transactional
+    public void registerFood(Long restaurantId, List<FoodRequestDto> requestDtoList) {
+        for (FoodRequestDto requestDto : requestDtoList) {
 
-        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() ->
-                new IllegalArgumentException("음식점 id값을 확인해주세요.")
-        );
-        Food food = new Food(requestDto);
+            Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() ->
+                    new IllegalArgumentException("음식점 id값을 확인해주세요.")
+            );
+            Food food = new Food(requestDto);
 
-        if (food.getPrice() < 100 && food.getPrice() > 1000000) {
-            throw new IllegalArgumentException("100원 ~ 1,000,000원 사이로 입력해주세요");
-        } else if (food.getPrice() % 100 != 0) {
-            throw new IllegalArgumentException("100원 단위로 입력해주세요.");
+            if (foodRepository.existsByRestaurantIdAndName(restaurantId, food.getName())) {
+                throw new IllegalArgumentException("중복된 메뉴입니다.");
+            }
+
+            if (food.getPrice() < 100 || food.getPrice() > 1000000) {
+                throw new IllegalArgumentException("100원 ~ 1,000,000원 사이로 입력해주세요");
+            } else if (food.getPrice() % 100 != 0) {
+                throw new IllegalArgumentException("100원 단위로 입력해주세요.");
+            }
+            food.setRestaurant(restaurant);
+
+            foodRepository.save(food);
         }
-
-        food.setRestaurant(restaurant);
-//        food.setRestaurantId(restaurantId);
-
-
-        foodRepository.save(food);
-        return food;
     }
 
     public List<Food> getFoods(Long restaurantId) {

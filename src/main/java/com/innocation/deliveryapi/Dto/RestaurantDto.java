@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class RestaurantRequestDto {
+public class RestaurantDto {
 
     private String name;
     private int minOrderPrice;

@@ -21,7 +21,7 @@ public class Food {
     @JoinColumn
     private Restaurant restaurant;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -32,4 +32,13 @@ public class Food {
         this.price = requestDto.getPrice();
     }
 
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", restaurant=" + restaurant +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

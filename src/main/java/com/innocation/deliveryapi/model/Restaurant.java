@@ -1,13 +1,11 @@
 package com.innocation.deliveryapi.model;
 
-import com.innocation.deliveryapi.Dto.RestaurantRequestDto;
+import com.innocation.deliveryapi.Dto.RestaurantDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -29,13 +27,20 @@ public class Restaurant {
     @Column(nullable = false)
     private int deliveryFee;
 
-//    @OneToMany(mappedBy = "restaurant")
-//    private Set<Food> foods = new HashSet<>();
 
-
-    public Restaurant(RestaurantRequestDto requestDto) {
+    public Restaurant(RestaurantDto requestDto) {
         this.name = requestDto.getName();
         this.minOrderPrice = requestDto.getMinOrderPrice();
         this.deliveryFee = requestDto.getDeliveryFee();
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", minOrderPrice=" + minOrderPrice +
+                ", deliveryFee=" + deliveryFee +
+                '}';
     }
 }

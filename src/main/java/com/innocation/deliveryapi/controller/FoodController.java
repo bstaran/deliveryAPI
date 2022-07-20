@@ -6,6 +6,7 @@ import com.innocation.deliveryapi.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,15 +20,12 @@ public class FoodController {
     }
 
     @PostMapping("/restaurant/{restaurantId}/food/register")
-    public Long registerFood(@RequestBody List<FoodRequestDto> requestDtoList,
-                             @PathVariable Long restaurantId) {
-        for(FoodRequestDto requestDto : requestDtoList){
-//            System.out.println(requestDto.toString());
-            foodService.registerFood(restaurantId, requestDto);
-        }
-        System.out.println(restaurantId);
-
-        return 1L;
+    public void registerFood(
+            @RequestBody List<FoodRequestDto> requestDtoList,
+            @PathVariable Long restaurantId
+    ) {
+        foodService.registerFood(restaurantId, requestDtoList);
+//        return list;
     }
 
     @GetMapping("/restaurant/{restaurantId}/foods")

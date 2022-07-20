@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -15,6 +17,7 @@ public class Restaurant {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @Column
     private Long id;
 
     @Column(nullable = false)
@@ -25,6 +28,10 @@ public class Restaurant {
 
     @Column(nullable = false)
     private int deliveryFee;
+
+//    @OneToMany(mappedBy = "restaurant")
+//    private Set<Food> foods = new HashSet<>();
+
 
     public Restaurant(RestaurantRequestDto requestDto) {
         this.name = requestDto.getName();

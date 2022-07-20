@@ -17,7 +17,9 @@ public class Food {
     @Id
     private Long id;
 
-    private Long restaurantId;
+    @ManyToOne
+    @JoinColumn
+    private Restaurant restaurant;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -26,7 +28,6 @@ public class Food {
     private int price;
 
     public Food(FoodRequestDto requestDto) {
-        this.restaurantId = requestDto.getRestaurantId();
         this.name = requestDto.getName();
         this.price = requestDto.getPrice();
     }

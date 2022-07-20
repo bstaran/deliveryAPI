@@ -4,10 +4,7 @@ import com.innocation.deliveryapi.Dto.FoodRequestDto;
 import com.innocation.deliveryapi.model.Food;
 import com.innocation.deliveryapi.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,10 @@ public class FoodController {
         System.out.println(restaurantId);
 
         return 1L;
+    }
+
+    @GetMapping("/restaurant/{restaurantId}/foods")
+    public List<Food> getFoods(@PathVariable Long restaurantId) {
+        return foodService.getFoods(restaurantId);
     }
 }

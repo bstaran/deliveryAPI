@@ -6,6 +6,8 @@ import com.innocation.deliveryapi.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FoodService {
 
@@ -30,5 +32,9 @@ public class FoodService {
 
         foodRepository.save(food);
         return food;
+    }
+
+    public List<Food> getFoods(Long restaurantId) {
+        return foodRepository.findAllByRestaurantId(restaurantId);
     }
 }

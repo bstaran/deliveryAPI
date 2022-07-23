@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class FoodController {
+public class FoodRestController {
 
     private final FoodService foodService;
 
     @Autowired
-    public FoodController(FoodService foodService) {
+    public FoodRestController(FoodService foodService) {
         this.foodService = foodService;
     }
 

@@ -73,9 +73,7 @@ public class OrderService {
 
         orderRepository.save(orderRequest);
 
-        OrderResponseDto orderResponseDto = new OrderResponseDto(restaurant.getName(), foodOrderDtoList, restaurant.getDeliveryFee(), totalPrice);
-
-        return orderResponseDto;
+        return new OrderResponseDto(restaurant.getName(), foodOrderDtoList, restaurant.getDeliveryFee(), totalPrice);
     }
 
     @Transactional
